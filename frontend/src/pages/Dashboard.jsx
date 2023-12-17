@@ -18,21 +18,19 @@ import { getData } from "../Api/DataAPI";
 import { toast } from "react-toastify";
 
 function Dashboard() {
-  const [loader, setLoader] = useState(false);
-  const [data, setData] = useState([]);
-
+  
   const navigate = useNavigate();
-
-  /*useEffect(() => {
-    setLoder(false);
-    const expiresAfter = localStorage.getItem("expires_after");
-
-    if (!expiresAfter) {
-      navigate("/");
-    } else if (Date.now() >= expiresAfter) {
+  
+  useEffect(() => {
+    const User = localStorage.getItem("isUser");
+    
+    if (User === null) {
       navigate("/");
     }
-  }, []);*/
+  }, []);
+  
+  const [loader, setLoader] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const getanalytics = () => {

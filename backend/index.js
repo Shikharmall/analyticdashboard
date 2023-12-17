@@ -21,7 +21,7 @@ if (process.env.DATABASE === "MONGODBATLAS") {
 
 const cors = require("cors");
 
-const allowedOrigins = process.env.ORIGINARRAY;
+let allowedOrigins = ["http://localhost:5173"];
 
 app.use(
   cors({

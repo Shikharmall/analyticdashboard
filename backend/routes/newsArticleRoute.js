@@ -4,14 +4,15 @@ var user_route = express();
 const auth = require('../middleware/auth');
 
 const articleController = require('../controllers/newsArticleController');
-const userController = require('../controllers/userController');
 
 const bodyParser = require('body-parser');
 user_route.use(bodyParser.json());
 user_route.use(bodyParser.urlencoded({extended:true}));
 
 user_route.get('/analyticsdata', /*auth.islogin ,*/ articleController.getanalyticsdata);
-user_route.post('/login', userController.loginUser);
+user_route.post('/login', articleController.loginUser); 
+user_route.get('/getcredentials', articleController.getCredentials); 
+
 
 module.exports = user_route;
 

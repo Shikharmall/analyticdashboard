@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ddLogin } from "../Api/LoginAPI";
+import { ddLogin, getCredentials } from "../Api/LoginAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +8,35 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const expiresAfter = localStorage.getItem("expires_after");
+    const User = localStorage.getItem("isUser");
 
-    if (expiresAfter !== null && Date.now() <= expiresAfter) {
+    if (User !== null) {
       navigate("/dashboard");
     }
   }, []);
 
-  const [load, setLoad] = useState(false);
-
+  
+  const [data,setData] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    const getcredentials = () => {
+      getCredentials().then((res) => {
+        if (res.status === 200) {
+          setData(res.data[0]);
+          setFormData({...formData,email:res.data[0]?.email,password:res.data[0]?.password})
+        } else {
+          toast("Data Fetching Failed!");
+        }
+      });
+    };
+    
+    getcredentials();
+  }, []);
+
 
   const onChangeHandler = (e) => {
     setFormData({
@@ -32,22 +48,15 @@ export default function Login() {
   const submitHandler = (e) => {
     //setLoad(true);
     e.preventDefault();
-   /* ddLogin(formData).then((res) => {
+    ddLogin(formData).then((res) => {
       if (res.status === 200) {
-        //localStorage.setItem("users", JSON.stringify(res.data));
-        const expiresAfter = Date.now() + res.data.expiresIn * 1000;
-        localStorage.setItem("expires_after", expiresAfter);
-        localStorage.setItem("community_id", res.data.user?._id);
+        localStorage.setItem("isUser", res.data);
 
-        setLoad(false);
         navigate("/dashboard");
       } else {
-        //setLoad(false);
-        //logger.info("Login Failed By Dashboard Admin - "+res?.response?.data?.message);
         toast(res?.response?.data?.message);
       }
-    });*/
-    navigate("/dashboard");
+    });
   };
 
   return (
@@ -75,6 +84,7 @@ export default function Login() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-700 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
+              <p lassName="text-xm">* login directly as it is demo dashboard *</p>
               <form className="space-y-4 md:space-y-6">
                 <div>
                   <label
