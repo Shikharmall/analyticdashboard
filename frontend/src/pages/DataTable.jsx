@@ -200,16 +200,33 @@ const DataTable = () => {
                                   key={index}
                                 >
                                   <td className="px-6 py-4 uppercase">
-                                    {item.topic} <br />
+                                    {item.topic ? item.topic : "-"}
+                                    <br />
                                     <p className="text-xs text-gray-400">
-                                      {item.title?.substring(0, 20)}.....
+                                      {item.title ? (
+                                        <>
+                                          {item.title?.substring(0, 20)}.....{" "}
+                                        </>
+                                      ) : (
+                                        "-"
+                                      )}
                                     </p>
                                   </td>
-                                  <td className="px-6 py-4">{item.sector}</td>
-                                  <td className="px-6 py-4">{item.region}</td>
-                                  <td className="px-6 py-4">{item.pestle}</td>
-                                  <td className="px-6 py-4">{item.source}</td>
-                                  <td className="px-6 py-4">{item.country}</td>
+                                  <td className="px-6 py-4">
+                                    {item.sector ? item.sector : "-"}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    {item.region ? item.region : "-"}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    {item.pestle ? item.pestle : "-"}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    {item.source ? item.source : "-"}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    {item.country ? item.country : "-"}
+                                  </td>
                                   <td className="px-6 py-4">
                                     {item.end_year ? item.end_year : "-"}
                                   </td>
