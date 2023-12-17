@@ -5,7 +5,7 @@ if (ENV === "LOCAL") {
   URL = "http://localhost:5174";
   console.log("USING ENV: LOCAL");
 } else if (ENV === "DEV") {
-  URL = "https://ddbackend-8ve4.onrender.com";
+  URL = import.meta.env.VITE_URL;
   console.log("USING ENV: DEV");
 } else {
   console.log(
