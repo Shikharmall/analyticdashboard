@@ -1,4 +1,4 @@
-# Project Title
+# Analytic Dashboard
 
 A brief description of your MERN stack project.
 
