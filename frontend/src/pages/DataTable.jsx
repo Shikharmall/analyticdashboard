@@ -38,13 +38,45 @@ const DataTable = () => {
   };
 
   const [Loader, setLoader] = useState(false);
+  const [data1, setData1] = useState([]);
   const [data, setData] = useState([]);
+  const [endYearFilter, setEndYearFilter] = useState("");
+  const [selectedIndustry, setSelectedIndustry] = useState("");
+
+  const years = [];
+  for (let i = 2040; i >= 2000; i--) {
+    years.push(i.toString());
+  }
+
+  const applyFilters = (value) => {
+    console.log(value);
+    setEndYearFilter(value);
+
+    let updatedFilteredItems = [...data1];
+
+    if (value !== "") {
+      updatedFilteredItems = updatedFilteredItems.filter(
+        (item) => String(item.end_year) === value
+      );
+    }
+
+    if (selectedIndustry !== "") {
+      updatedFilteredItems = updatedFilteredItems.filter(
+        (item) => item.industry === selectedIndustry
+      );
+    }
+
+    setData(updatedFilteredItems);
+  };
+
+  console.log(data);
 
   useEffect(() => {
     const getanalytics = () => {
       setLoader(true);
       getData().then((res) => {
         if (res.status === 200) {
+          setData1(res.data);
           setData(res.data);
           setLoader(false);
         } else {
@@ -70,8 +102,25 @@ const DataTable = () => {
           <div className="relative sm:rounded-lg p-3" id="movetop">
             <>
               <div className="flex flex-wrap items-center justify-between py-4 px-4 bg-white dark:bg-gray-800 rounded-tl-lg rounded-tr-lg">
-                <div className="relative p-2"></div>
+                <div className="relative p-2">
+                  <div>
+                    <label className="sr-only">End Year:</label>
+                    <select
+                      value={endYearFilter}
+                      onChange={(e) => applyFilters(e.target.value)}
+                      className="block p-3 pr-8  text-sm text-blue-500 border border-blue-300 placeholder-blue-400 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 box-border"
+                    >
+                      <option value="">All Year</option>
 
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                      {/* Add more options as needed */}
+                    </select>
+                  </div>
+                </div>
                 <div className="relative p-2 box-border">
                   <label htmlFor="table-search" className="sr-only">
                     Search
@@ -248,7 +297,7 @@ const DataTable = () => {
 
                   {data && data.length > 0 ? null : (
                     <div className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 flex justify-center">
-                      <h1 className="p-3">No Society Found</h1>
+                      <h1 className="p-3">No Data Found.</h1>
                     </div>
                   )}
 
