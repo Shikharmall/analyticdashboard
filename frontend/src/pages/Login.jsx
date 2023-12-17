@@ -32,7 +32,7 @@ export default function Login() {
   const submitHandler = (e) => {
     //setLoad(true);
     e.preventDefault();
-    /* ddLogin(formData).then((res) => {
+   /* ddLogin(formData).then((res) => {
       if (res.status === 200) {
         //localStorage.setItem("users", JSON.stringify(res.data));
         const expiresAfter = Date.now() + res.data.expiresIn * 1000;
