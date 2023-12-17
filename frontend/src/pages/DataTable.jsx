@@ -147,49 +147,52 @@ const DataTable = () => {
                         {data && data.length > 0
                           ? data
                               .filter((item) => {
-                                return search.toLowerCase() === ""
-                                  ? item
-                                  : (
-                                      item.topic.toLowerCase() +
-                                      " " +
-                                      item.country.toLowerCase() +
-                                      " " +
-                                      item.sector.toLowerCase() +
-                                      " " +
-                                      item.title.toLowerCase()
-                                    ).includes(search.toLowerCase()) ||
-                                      item.url
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.insight
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.source
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.published
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.added
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.pestle
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.region
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      item.intensity
+                                const lowercasedSearch = search.toLowerCase();
+                                return (
+                                  lowercasedSearch === "" ||
+                                  item.topic
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.country
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.sector
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.title
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.insight
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.source
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.published
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.added
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.pestle
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.region
+                                    ?.toLowerCase()
+                                    .includes(lowercasedSearch) ||
+                                  item.relevance
+                                    ?.toString()
+                                    .includes(lowercasedSearch) ||
+                                  item.likelihood
+                                    ?.toString()
+                                    .includes(lowercasedSearch) ||
+                                  (item.end_year
+                                    ? item.end_year
                                         .toString()
-                                        .includes(search.toLowerCase()) ||
-                                      item.relevance
-                                        .toString()
-                                        .includes(search.toLowerCase()) ||
-                                      item.likelihood
-                                        .toString()
-                                        .includes(search.toLowerCase());
+                                        .includes(lowercasedSearch)
+                                    : false)
+                                );
                               })
-
                               .slice(indexOfFirstPost, indexOfLastPost)
                               .map((item, index) => (
                                 <tr
@@ -260,8 +263,7 @@ const DataTable = () => {
 
                     {data.length > 0 ? (
                       <a className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        {currentPage} of{" "}
-                        {Math.ceil(data.length / postsPerPage)}
+                        {currentPage} of {Math.ceil(data.length / postsPerPage)}
                       </a>
                     ) : (
                       <a className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -279,9 +281,7 @@ const DataTable = () => {
                                   className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                                   onClick={() =>
                                     paginate(
-                                      Math.ceil(
-                                       data.length / postsPerPage
-                                      )
+                                      Math.ceil(data.length / postsPerPage)
                                     )
                                   }
                                 >
