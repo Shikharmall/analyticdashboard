@@ -9,6 +9,7 @@ import "./charts/ChartjsConfig";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./components/NotFound";
+import DataTable from "./pages/DataTable";
 
 function App() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function App() {
 
         <Route exact path="/" element={<Login />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/datatable" element={<DataTable/>} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
