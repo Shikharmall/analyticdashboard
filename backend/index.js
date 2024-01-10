@@ -21,7 +21,12 @@ if (process.env.DATABASE === "MONGODBATLAS") {
 
 const cors = require("cors");
 
-let allowedOrigins = ["http://localhost:5173","https://analyticdashboard-ten.vercel.app"];
+let allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://analyticdashboard-ten.vercel.app",
+  "https://shikhar-react-portfolio.vercel.app",
+];
 
 app.use(
   cors({
@@ -29,7 +34,6 @@ app.use(
     origin: allowedOrigins,
   })
 );
-
 
 const articlesRoute = require("./routes/newsArticleRoute");
 

@@ -1,5 +1,6 @@
 const newsArticle = require("../models/newsArticleModel");
 const User = require("../models/userModel");
+const Contact = require("../models/portfolioContactModel");
 
 const getanalyticsdata = async (req, res) => {
   try {
@@ -43,8 +44,29 @@ const loginUser = async (req, res) => {
   }
 };
 
+const contact = async (req, res) => {
+  try {
+    //const { name, email, message } = req.body;
+
+    const newData = new Contact({
+      name: req.body.name,
+      email: req.body.email,
+      message: req.body.message,
+      // Add other fields as needed
+    });
+
+    // Save the data to MongoDB
+    const savedData = await newData.save();
+
+    res.status(201).json(savedData);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = {
   getanalyticsdata,
   getCredentials,
-  loginUser
+  loginUser,
+  contact,
 };
