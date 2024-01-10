@@ -12,7 +12,7 @@ user_route.use(bodyParser.urlencoded({extended:true}));
 user_route.get('/analyticsdata', /*auth.islogin ,*/ articleController.getanalyticsdata);
 user_route.post('/login', articleController.loginUser); 
 
-user_route.post('/contact', articleController.contact); 
+user_route.post('/userPortfolioMessage', articleController.userPortfolioMessage); 
 user_route.get('/getcredentials', articleController.getCredentials); 
 
 

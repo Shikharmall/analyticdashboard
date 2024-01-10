@@ -44,7 +44,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const contact = async (req, res) => {
+const userPortfolioMessage = async (req, res) => {
   try {
     //const { name, email, message } = req.body;
 
@@ -68,5 +68,5 @@ module.exports = {
   getanalyticsdata,
   getCredentials,
   loginUser,
-  contact,
+  userPortfolioMessage,
 };
