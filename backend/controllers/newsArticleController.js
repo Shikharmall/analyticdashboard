@@ -1,6 +1,13 @@
 const newsArticle = require("../models/newsArticleModel");
 const User = require("../models/userModel");
 const Contact = require("../models/portfolioContactModel");
+const { body, validationResult } = require("express-validator");
+
+const validateForm = [
+  //body('username').isLength({ min: 5 }).withMessage('Username must be at least 5 characters long'),
+  body("email").isEmail().withMessage("Invalid email address"),
+  //body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
+];
 
 const getanalyticsdata = async (req, res) => {
   try {
@@ -48,6 +55,11 @@ const userPortfolioMessage = async (req, res) => {
   try {
     //const { name, email, message } = req.body;
 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array()[0].msg });
+    }
+
     const newData = new Contact({
       name: req.body.name,
       email: req.body.email,
@@ -69,4 +81,5 @@ module.exports = {
   getCredentials,
   loginUser,
   userPortfolioMessage,
+  validateForm,
 };
